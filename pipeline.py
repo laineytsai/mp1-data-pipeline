@@ -13,6 +13,7 @@ import argparse
 import logging
 import sys
 from pathlib import Path
+from data_loaders import load_data
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +47,7 @@ def parse_arguments():
 
     parser.add_argument("--format",
                         choices = ["csv", "json"],
+                        default = "csv",
                         help = "Output format: csv or json; default is csv")
 
     parser.add_argument("--verbose", "-v",
@@ -74,6 +76,11 @@ def main():
     is_valid = validate_input(args.input)
 
     if not is_valid:
+        sys.exit(1)
+
+    try:
+        data = load_data(args.input)
+    except ValueError:
         sys.exit(1)
 
 if __name__ == "__main__":
