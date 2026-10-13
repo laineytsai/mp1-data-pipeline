@@ -21,10 +21,9 @@ def handle_missing(df, axis="rows"):
         before = df.shape[1]
         df = df.dropna(axis=1)
         logger.debug(f"handle_missing: {before} -> {df.shape[1]} columns")
-        logger.debug(f"handle_missing: {before} -> {df.shape[1]} columns")
     else:
         logger.error(f"Unsupported axis {axis}")
-        raise ValueError
+        raise ValueError(f"Unsupported axis {axis}")
 
     return df
 
